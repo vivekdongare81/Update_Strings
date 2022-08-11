@@ -79,7 +79,7 @@ public class BinaryStringTree {
        public void update(String data, int value) {
               if (this.data == null) {
                      this.data = data;
-                     // System.out.println(" no got");
+                     // System.out.println(" not found");
               } else if (this.data.equals(data)) {
                      this.value = value;
                      System.out.println(" got it");
