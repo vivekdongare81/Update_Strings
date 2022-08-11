@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,21 +22,21 @@ public class BinaryStringTree {
        private String data;
        private BinaryStringTree left;
        private BinaryStringTree right;
-       private int id;
+       private ArrayList<Integer> id = new ArrayList<Integer>();
        private int value;
 
        public BinaryStringTree() {
               this.data = null;
               this.left = null;
               this.right = null;
-              this.id = -1;
+              this.id.add(-1);
        }
 
        public BinaryStringTree(String data, int id) {
               this.data = data;
               this.left = null;
               this.right = null;
-              this.id = id;
+              this.id.add(id);
        }
 
        public static BinaryStringTree createTree(String content) {
@@ -53,7 +54,11 @@ public class BinaryStringTree {
                      this.data = data; // System.out.println(data+" "+"here");
               } else {
                      // System.out.println(this.data+" "+data+" "+this.data.compareTo(data));
-                     if (this.data.compareTo(data) < 0) {
+                  if(this.data.compareTo(data)==0) {
+                	  this.id.add(id);
+                  }   
+                  else if (this.data.compareTo(data) < 0) {
+                    	 
                             if (this.left != null) {
                                    this.left.addNode(data, id);
                             } else {
@@ -103,10 +108,18 @@ public class BinaryStringTree {
               if (this.left != null) {
                      this.left.traverseInOrder();
               }
-              if (this.value != 0)
-                     hm.put(this.id, this.data + ", - ," + this.value);
-              else
-                     hm.put(this.id, this.data);
+              if (this.value != 0) {
+            	  for(int i=0;i<this.id.size();i++) {
+            		  hm.put(this.id.get(i), this.data + ", - ," + this.value);
+            	  }
+            	     
+              }else {
+            	  for(int i=0;i<this.id.size();i++) {
+            		  hm.put(this.id.get(i), this.data);
+            	  }
+              }
+                
+           
               // System.out.println(this.data+" "+this.id+" " +this.value);
               if (this.right != null) {
                      this.right.traverseInOrder();
@@ -118,6 +131,7 @@ public class BinaryStringTree {
               BinaryStringTree root = BinaryStringTree.createTree("m"); 
 
               long start = System.currentTimeMillis();
+          
               // preprocessing
 
               File file = new File("C:\\Users\\donga\\eclipse-workspace\\Find_String\\dataSet2.csv");
